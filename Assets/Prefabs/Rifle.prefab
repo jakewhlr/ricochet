@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b6af3ddddc8284cb0bc039647715da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 0}
   bullet_prefab: {fileID: 1288882371025636, guid: 73e3ae06eb8e0344f88289766d6c914a,
     type: 2}
   bullet_spawn: {fileID: 1696464824328354}
@@ -223,7 +224,7 @@ MonoBehaviour:
   casing_spawn: {fileID: 1565299083263110}
   x_vel_multiplier: 5
   y_vel_multiplier: 5
-  volume: 0.5
+  shot_volume: 0.5
 --- !u!212 &212384409934519074
 SpriteRenderer:
   m_ObjectHideFlags: 1

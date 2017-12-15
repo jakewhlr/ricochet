@@ -10,21 +10,24 @@ public class GunBehavior : MonoBehaviour {
     private GameObject spawned_bullet;
     private GameObject spawned_casing;
     private AudioSource shot_sound;
+    private ClipBehavior clip_script;
 
+    public GameObject clip;
     public GameObject bullet_prefab;
     public GameObject bullet_spawn;
     public GameObject casing_prefab;
     public GameObject casing_spawn;
     public float x_vel_multiplier;
     public float y_vel_multiplier;
-    public float volume;
+    public float shot_volume;
 
     void Start () {
         spawned_bullet = new GameObject();
         bullet_position = bullet_spawn.GetComponent<Transform>();
         casing_position = casing_spawn.GetComponent<Transform>();
         shot_sound = GetComponent<AudioSource>();
-        shot_sound.volume = volume;
+        shot_sound.volume = shot_volume;
+        clip_script = clip.GetComponent<ClipBehavior>();
         InitializeMotor();
     }
 
@@ -43,7 +46,6 @@ public class GunBehavior : MonoBehaviour {
         }
     }
 
-
     void InitializeMotor() {
         sniper_hinge = GetComponent<HingeJoint2D>();
         sniper_motor = sniper_hinge.motor;
@@ -53,9 +55,12 @@ public class GunBehavior : MonoBehaviour {
     }
 
     void Fire() {
-        shot_sound.Play();
-        LaunchBullet();
-        DropCasing();
+        if( clip_script.ammo_remaining >= 0 ) {
+            shot_sound.Play();
+            LaunchBullet();
+            DropCasing();
+            clip_script.EjectRound();
+        }
     }
 
     void LaunchBullet() {
@@ -76,4 +81,5 @@ public class GunBehavior : MonoBehaviour {
         spawned_casing = Instantiate(casing_prefab, casing_position.position, casing_spawn.GetComponent<Transform>().rotation);
         spawned_casing.GetComponent<Rigidbody2D>().AddForce(new Vector2(x_velocity, y_velocity));
     }
+
 }
