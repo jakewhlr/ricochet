@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GunBehavior : MonoBehaviour {
@@ -11,6 +10,7 @@ public class GunBehavior : MonoBehaviour {
     private GameObject spawned_casing;
     private AudioSource shot_sound;
     private ClipBehavior clip_script;
+    private Animator rifle_animator;
 
     public GameObject clip;
     public GameObject bullet_prefab;
@@ -19,15 +19,17 @@ public class GunBehavior : MonoBehaviour {
     public GameObject casing_spawn;
     public float x_vel_multiplier;
     public float y_vel_multiplier;
+
+    [Range(0f, 1f)]
     public float shot_volume;
 
     void Start () {
-        spawned_bullet = new GameObject();
         bullet_position = bullet_spawn.GetComponent<Transform>();
         casing_position = casing_spawn.GetComponent<Transform>();
         shot_sound = GetComponent<AudioSource>();
         shot_sound.volume = shot_volume;
         clip_script = clip.GetComponent<ClipBehavior>();
+        rifle_animator = GetComponent<Animator>();
         InitializeMotor();
     }
 
@@ -66,9 +68,10 @@ public class GunBehavior : MonoBehaviour {
 
     void Fire() {
         if( clip_script.ammo_remaining >= 0 ) {
+            rifle_animator.SetTrigger("ShotFired");
             shot_sound.Play();
             LaunchBullet();
-            DropCasing();
+            StartCoroutine(DropCasing(0.3f));
             clip_script.EjectRound();
         }
     }
@@ -83,13 +86,20 @@ public class GunBehavior : MonoBehaviour {
         spawned_bullet.GetComponent<Rigidbody2D>().AddForce(new Vector2(x_velocity, y_velocity));
     }
 
-    void DropCasing() {
+    private IEnumerator DropCasing(float delay) {
+        yield return new WaitForSeconds(delay);
         System.Random rng = new System.Random();
         float y_velocity = rng.Next(0, 20);
         float x_velocity = rng.Next(-20, 0);
 
         spawned_casing = Instantiate(casing_prefab, casing_position.position, casing_spawn.GetComponent<Transform>().rotation);
         spawned_casing.GetComponent<Rigidbody2D>().AddForce(new Vector2(x_velocity, y_velocity));
+        StartCoroutine(DestroyCasing(spawned_casing, 5f));
+    }
+
+    private IEnumerator DestroyCasing(GameObject casing, float delay) {
+        yield return new WaitForSeconds(delay);
+        Destroy(casing);
     }
 
 }

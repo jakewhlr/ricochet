@@ -8,7 +8,7 @@ public class ClipBehavior : MonoBehaviour {
     private Rigidbody2D[] cartridge_rbs;
     private List<GameObject> cartridge_list;
 
-    [Range(0, 20)]
+    [Range(1, 100)]
     public int max_ammo;
     public int ammo_remaining;
     public Sprite cartridge_sprite;
