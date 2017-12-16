@@ -40,6 +40,8 @@ public class GunBehavior : MonoBehaviour {
             sniper_hinge.motor = sniper_motor;
         } else if( Input.GetKeyDown(KeyCode.Space) ) {
             Fire();
+        } else if( Input.GetKeyDown(KeyCode.R) ) {
+            clip_script.Reload();
         } else {
             sniper_motor.motorSpeed = 0;
             sniper_hinge.motor = sniper_motor;
