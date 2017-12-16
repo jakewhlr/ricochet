@@ -33,10 +33,18 @@ public class GunBehavior : MonoBehaviour {
 
     void Update () {
         if( Input.GetKey(KeyCode.DownArrow) ) {
-            sniper_motor.motorSpeed = 100;
+            if( Input.GetKey(KeyCode.LeftControl) ) {
+                sniper_motor.motorSpeed = 10;
+            } else {
+                sniper_motor.motorSpeed = 100;
+            }
             sniper_hinge.motor = sniper_motor;
         } else if( Input.GetKey(KeyCode.UpArrow) ) {
-            sniper_motor.motorSpeed = -100;
+            if( Input.GetKey(KeyCode.LeftControl) ) {
+                sniper_motor.motorSpeed = -10;
+            } else {
+                sniper_motor.motorSpeed = -100;
+            }
             sniper_hinge.motor = sniper_motor;
         } else if( Input.GetKeyDown(KeyCode.Space) ) {
             Fire();
