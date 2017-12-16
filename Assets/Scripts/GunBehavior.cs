@@ -67,7 +67,7 @@ public class GunBehavior : MonoBehaviour {
     }
 
     void Fire() {
-        if( clip_script.ammo_remaining >= 0 ) {
+        if( clip_script.ammo_remaining >= 0 && CheckAnimation("Static State") ) {
             rifle_animator.SetTrigger("ShotFired");
             shot_sound.Play();
             LaunchBullet();
@@ -102,4 +102,11 @@ public class GunBehavior : MonoBehaviour {
         Destroy(casing);
     }
 
+    private bool CheckAnimation(string state_name) {
+        if( rifle_animator.GetCurrentAnimatorStateInfo(0).IsName(state_name) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
