@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212043066222168098}
   - component: {fileID: 50935042608917956}
   - component: {fileID: 61693002492719400}
+  - component: {fileID: 114882214291805204}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -60,7 +61,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &61693002492719400
 BoxCollider2D:
@@ -87,6 +88,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07, y: 0.19}
   m_EdgeRadius: 0
+--- !u!114 &114882214291805204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288882371025636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2af3db88aae6c46aad13203c89beb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212043066222168098
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -96,6 +108,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -111,6 +124,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
